@@ -14,9 +14,6 @@
 <meta property="og:image" content="https://nivaltmark.github.io/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:title" content="Niv Altmark · systems that run without me">
-<meta property="og:description" content="392 workflows, 6,597 nodes, 47,859 lines of JavaScript, 115 runs a day at 90.3% success.">
-<meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B0E11'/><rect x='7' y='19' width='3' height='6' fill='%23E8A33D'/><rect x='12' y='13' width='3' height='12' fill='%23E8E4DC'/><rect x='17' y='16' width='3' height='9' fill='%23E8E4DC'/><rect x='22' y='9' width='3' height='16' fill='%23E8E4DC'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,27 +70,67 @@
      padding. The two stack into a dead band. One value, applied once. */
   .sc-section { padding-block: clamp(52px, 7vh, 92px); }
 
-  /* A hiring manager gives a portfolio about fifteen seconds and asks three
-     things: what you do, at what level, on what problems. That answer used to
-     be below the fold here. It is now the first block on the page. */
-  .me { display: flex; gap: 22px; align-items: flex-start; margin: 0 0 40px;
-    max-width: 76ch; }
-  .me-r { margin: 0 0 10px; font-size: clamp(1.02rem, 2.1vw, 1.2rem);
-    font-weight: 500; letter-spacing: -.012em; color: var(--sc-ink); }
+  /* ------------------------------------------------------ the first look */
+  /* Whoever opens this link has the CV open in the other tab. They know the
+     name and came for the work, so the eye gets one path: the name, one line of
+     what he does, then the four projects, and the projects start inside the
+     first screen. The bio paragraph repeated the CV and competed with a
+     headline set larger than the name; both are gone. */
+  .surface { position: relative; isolation: isolate; overflow: hidden;
+    padding: clamp(84px, 13vh, 128px) 0 84px; }
+  .surface > .wrap { position: relative; z-index: 1; }
+  /* A workflow canvas running behind the name. Pointer-events off: it is
+     scenery, and nothing on it can be clicked or read by a screen reader. */
+  .hero-fx { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%;
+    pointer-events: none; }
+  .me { display: flex; gap: 28px; align-items: center; margin: 0; max-width: 47rem; }
+  .me img { width: 118px; height: 118px; border-radius: 50%; flex: none;
+    border: 3px solid #fff; box-shadow: var(--e3); object-fit: cover; }
+  .me-k { margin: 0 0 12px; font-size: 11px; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--sc-accent); }
+  .me-n { margin: 0; font-size: clamp(2.7rem, 6.2vw, 4.7rem); font-weight: 600;
+    letter-spacing: -.045em; line-height: .94; color: var(--sc-ink); }
+  .me-n span { display: inline-block; }
+  .me-r { margin: 16px 0 0; max-width: 39rem; font-size: clamp(1.02rem, 1.6vw, 1.16rem);
+    line-height: 1.5; font-weight: 500; letter-spacing: -.012em; color: var(--sc-ink);
+    text-wrap: pretty; }
   .me-r span { color: var(--sc-ink-soft); font-weight: 400; }
-  .me-l { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 8px 18px;
-    font-family: var(--mono); font-size: 12.5px; }
+  .me-l { margin: 18px 0 0; display: flex; flex-wrap: wrap; align-items: center;
+    gap: 8px 20px; font-family: var(--mono); font-size: 12.5px; }
   .me-l a { color: var(--sc-accent); text-decoration: none;
     border-bottom: 1px solid rgba(168,58,22,.32); }
   .me-l a:hover, .me-l a:focus-visible { border-bottom-color: var(--sc-accent); }
-  .me-l span { color: var(--sc-ink-soft); }
-  .me img { width: 78px; height: 78px; border-radius: 50%; flex: none;
-    border: 1px solid var(--line); box-shadow: var(--e2); object-fit: cover; }
-  .me-n { margin: 2px 0 6px; font-weight: 600; font-size: 1.06rem;
-    letter-spacing: -.01em; color: var(--sc-ink); }
-  .me-b { margin: 0; font-size: 14.6px; line-height: 1.66; color: var(--sc-ink-soft);
-    text-wrap: pretty; }
-  @media (max-width: 560px) { .me { gap: 16px; } .me img { width: 60px; height: 60px; } }
+  .me-open { display: inline-flex; align-items: center; gap: 9px; color: var(--ok); }
+  .me-open i { position: relative; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ok); flex: none; }
+  .me-open i::after { content: ""; position: absolute; inset: -4px; border-radius: 50%;
+    border: 1px solid var(--ok); opacity: 0; }
+  .pix-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 6px 28px; margin: clamp(38px, 6vh, 62px) 0 0; padding-top: 18px;
+    border-top: 1px solid var(--line); }
+  .pix-t { margin: 0; font-size: clamp(1.18rem, 1.9vw, 1.45rem); font-weight: 600;
+    letter-spacing: -.02em; line-height: 1.25; }
+  .pix-s { margin: 0; max-width: 46ch; font-size: 13px; line-height: 1.55;
+    color: var(--sc-ink-soft); }
+  @media (prefers-reduced-motion: no-preference) {
+    .me-n span { animation: rise .9s cubic-bezier(.2, .7, .2, 1) .1s backwards; }
+    .me-n span + span { animation-delay: .19s; }
+    .me-open i::after { animation: ping 2.6s cubic-bezier(0, .55, .45, 1) infinite; }
+    .pix.sc-in .pc { animation: rise .8s cubic-bezier(.2, .7, .2, 1) backwards; }
+    .pix.sc-in .pc-2 { animation-delay: .08s; }
+    .pix.sc-in .pc-3 { animation-delay: .16s; }
+    .pix.sc-in .pc-4 { animation-delay: .24s; }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(.5em); } }
+  @keyframes ping { from { opacity: .7; transform: scale(.4); } to { opacity: 0; transform: scale(1.7); } }
+  /* On a phone the canvas gets its own band above the photo instead of
+     running behind the words. */
+  @media (max-width: 860px) {
+    .surface { padding-top: 232px; }
+    .me { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .me img { width: 76px; height: 76px; }
+    .pix-h { flex-direction: column; }
+  }
   .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .13em;
     text-transform: uppercase; color: var(--sc-ink-soft); }
 
@@ -285,13 +322,6 @@
   .case .proj-f { margin-top: 26px; }
 
   /* ---------------------------------------------------- 1 · the surface */
-  .surface { padding: 104px 0 84px; }
-  h1.lede { font-weight: 500; }
-  .lede { max-width: 34ch; margin: 44px 0 0; font-size: clamp(1.5rem, 3.5vw, 2.35rem);
-    line-height: 1.24; letter-spacing: -.022em; text-wrap: balance;
-    font-weight: 500; color: var(--sc-ink); }
-  .lede b { font-weight: 700; }
-  .lede b { font-weight: 600; }
   .note { max-width: 62ch; margin: 16px 0 0; font-size: 13.5px; color: var(--sc-ink-soft);
     line-height: 1.65; }
 
@@ -411,7 +441,7 @@
      than four identical boxes. Every picture is one fixed height, so no card
      stretches to match its neighbour, and the stack and the way in share a line. */
   .pix { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px;
-    margin-top: 44px; }
+    margin-top: 22px; }
   .pc { display: grid; grid-template-rows: auto 1fr; color: var(--sc-ink); text-decoration: none;
     background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
     box-shadow: var(--e2); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
@@ -421,9 +451,21 @@
   .pc-2, .pc-3 { grid-column: span 5; }
   .pc-img { display: block; height: clamp(150px, 22vh, 228px); overflow: hidden;
     background: var(--canvas); border-bottom: 1px solid var(--line2); }
+  /* No zoom on hover: a screenshot scaled past its pixels goes soft, and the
+     pictures were cut at exactly 2x to stay sharp. */
   .pc-img img { display: block; width: 100%; height: 100%; object-fit: cover;
-    object-position: left top; transition: transform .5s ease; }
-  .pc:hover .pc-img img { transform: scale(1.02); }
+    object-position: left top; }
+  /* The card leans toward the pointer and a sheet of light follows it across
+     the picture. The engine leaves a transition-delay on revealed children, so
+     the tilt clears it or it would trail the hand by a quarter second. */
+  .pc.is-tilt { transition: transform .12s linear, box-shadow .25s ease, border-color .25s ease;
+    transition-delay: 0s !important; box-shadow: var(--e3); border-color: #CBC8BE; }
+  .pc-img { position: relative; }
+  .pc-img::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 0%),
+      rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 60%);
+    transition: opacity .3s ease; }
+  .pc.is-tilt .pc-img::after { opacity: 1; }
   .pc-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px;
     background: var(--line2); }
   .pc-t { display: grid; grid-template-columns: minmax(0, 1fr) auto;
@@ -529,37 +571,36 @@
 <main id="top">
 
     <section class="sc-section surface" data-sc-act="flow">
+    <canvas class="hero-fx" id="hero-fx" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="me" data-sc-in>
         <img src="assets/niv.jpg" width="640" height="640" alt="Niv Altmark">
         <div>
-          <p class="me-n">Niv Altmark</p>
+          <p class="me-k mono">Portfolio · the work behind the CV</p>
+          <h1 class="me-n"><span>Niv</span> <span>Altmark</span></h1>
           <p class="me-r">AI and automation engineer, Tel Aviv.
-            <span>I build and run the production platform a B2B outbound agency
-            works inside every day.</span></p>
-          <p class="me-b">Co-founder and CTO at LeadBound, where I own everything
-            technical: the product the clients open, the enrichment engine behind it,
-            392 workflows of orchestration, and the sending infrastructure
-            underneath. Industrial Engineering and Management at Ruppin, specialising in
-            Big Data. Client names are withheld under agreement; references on request.</p>
+            <span>Co-founder and CTO of LeadBound, the B2B outbound agency whose
+            platform I build and run.</span></p>
           <p class="me-l">
             <a href="mailto:nivaltmark0404@gmail.com">nivaltmark0404@gmail.com</a>
             <a href="https://www.linkedin.com/in/nivaltmark/" rel="noopener">LinkedIn</a>
             <a href="tel:+972542881779">054-288-1779</a>
-            <span>open to AI and automation engineering roles</span></p>
+            <span class="me-open"><i aria-hidden="true"></i>Open to AI and automation roles</span></p>
         </div>
       </div>
 
-      <h1 class="lede" data-sc-in>Four things I built, photographed where they run.
-        <b>Every number inside was counted from the machines themselves</b>, and each
-        project says how it was measured.</h1>
+      <div class="pix-h" data-sc-in>
+        <h2 class="pix-t">Four things I built, photographed where they run.</h2>
+        <p class="pix-s">Every number inside was counted from the running systems.
+          Client names are withheld under agreement; references on request.</p>
+      </div>
 
       <nav class="pix" aria-label="The four projects" data-sc-in>
         <a class="pc pc-1" href="#platform" data-open="platform">
           <span class="pc-img"><img src="assets/thumb-platform.jpg" width="1600" height="560" alt="" decoding="async"></span>
           <span class="pc-t">
             <span class="pc-i mono">01 / 04</span>
-            <h2 class="pc-n">The client platform</h2>
+            <h3 class="pc-n">The client platform</h3>
             <span class="pc-w">The product the agency and its clients open every morning. <b>Two agencies run on it</b>, one under its own brand.</span>
             <span class="pc-s mono">Next.js · TypeScript · Supabase · Railway</span>
             <span class="pc-go mono">Open the project <span aria-hidden="true">&rarr;</span></span>
@@ -569,7 +610,7 @@
           <span class="pc-img"><img src="assets/thumb-enrich.jpg" width="1200" height="570" alt="" decoding="async"></span>
           <span class="pc-t">
             <span class="pc-i mono">02 / 04</span>
-            <h2 class="pc-n">The enrichment engine</h2>
+            <h3 class="pc-n">The enrichment engine</h3>
             <span class="pc-w">A spreadsheet that computes. <b>445,131 cells filled for $3.50</b> of vendor spend, because every run is priced before it starts.</span>
             <span class="pc-s mono">TypeScript · Postgres · a local runner</span>
             <span class="pc-go mono">Open the project <span aria-hidden="true">&rarr;</span></span>
@@ -579,7 +620,7 @@
           <span class="pc-img"><img src="assets/thumb-auto.jpg" width="1200" height="572" alt="" decoding="async"></span>
           <span class="pc-t">
             <span class="pc-i mono">03 / 04</span>
-            <h2 class="pc-n">The automations that run the business</h2>
+            <h3 class="pc-n">The automations that run the business</h3>
             <span class="pc-w">A meeting that writes itself up, a job post that becomes a conversation. <b>One of them books a client three to four meetings a month.</b></span>
             <span class="pc-s mono">n8n · hand-written JavaScript · Claude</span>
             <span class="pc-go mono">Open the project <span aria-hidden="true">&rarr;</span></span>
@@ -589,7 +630,7 @@
           <span class="pc-img pc-trio"><img src="assets/thumb-shop.jpg" width="600" height="600" alt="" decoding="async"><img src="assets/thumb-land.jpg" width="600" height="600" alt="" decoding="async"><img src="assets/thumb-pay.jpg" width="600" height="600" alt="" decoding="async"></span>
           <span class="pc-t">
             <span class="pc-i mono">04 / 04</span>
-            <h2 class="pc-n">Built for other businesses</h2>
+            <h3 class="pc-n">Built for other businesses</h3>
             <span class="pc-w">A furniture shop, a land brokerage in the United States and a payroll bureau. <b>Each had a piece with no vendor answer.</b></span>
             <span class="pc-s mono">n8n · WooCommerce · pgvector · Google Maps · WhatsApp</span>
             <span class="pc-go mono">Open the project <span aria-hidden="true">&rarr;</span></span>
@@ -1381,6 +1422,194 @@
     e.preventDefault();
   });
   window.addEventListener('resize', function () { if (zv.open) doFit(); });
+}());
+
+// ------------------------------------------------------------ the first look
+// A workflow canvas running behind the name: n8n's dot grid, nodes named the
+// way n8n names them, executions travelling along the edges and lighting each
+// node they reach. Two layers at two depths, so the pointer and the scroll
+// both move them apart. Scenery: it claims no number and carries no content.
+(function () {
+  var sec = document.querySelector('.surface'), cv = document.getElementById('hero-fx');
+  if (!sec || !cv || !cv.getContext) return;
+  var ctx = cv.getContext('2d');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var INK = '23,24,27', ACC = '168,58,22', OK = '44,110,88', FLOW = '95,111,125';
+  var COLS = [['Webhook', 'Schedule', 'New reply'], ['HTTP Request', 'Postgres', 'Enrich'],
+              ['AI Agent', 'Claude', 'Code'], ['IF', 'Score', 'Merge'],
+              ['Slack', 'CRM', 'Send email'], ['Done', 'Log']];
+  var KIND = ['trigger', 'flow', 'ai', 'flow', 'flow', 'ok'];
+  var W = 0, H = 0, DPR = 1, nodes = [], edges = [], cols = [], pulses = [], rings = [], later = [];
+  var mx = 0, my = 0, px = 0, py = 0, raf = 0, prev = 0, nextFire = 0, seen = true;
+
+  function rng(a) { return function () { a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  function layout() {
+    var r = sec.getBoundingClientRect(), wrap = sec.querySelector('.wrap').getBoundingClientRect();
+    var me = sec.querySelector('.me').getBoundingClientRect();
+    var ph = sec.querySelector('.pix-h').getBoundingClientRect();
+    W = sec.clientWidth; H = sec.clientHeight; DPR = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+    var narrow = W < 860, g;
+    if (narrow) g = { x0: wrap.left - r.left + 10, x1: wrap.right - r.left - 10, y0: 44, y1: me.top - r.top - 26 };
+    else g = { x0: Math.max(me.right - r.left + 70, W * .5), x1: wrap.right - r.left - 8,
+               y0: Math.max(58, me.top - r.top - 26), y1: ph.top - r.top - 40 };
+    nodes = []; edges = []; cols = []; pulses = []; rings = []; later = [];
+    var gw = g.x1 - g.x0, gh = g.y1 - g.y0;
+    if (gw < 240 || gh < 100) return;
+    var R = rng(11), S = narrow ? 30 : 40;
+    var n = Math.max(3, Math.min(6, Math.round(gw / (narrow ? 78 : 112))));
+    for (var c = 0; c < n; c++) {
+      var k = Math.round(c * (COLS.length - 1) / (n - 1)), names = COLS[k];
+      var m = (c === 0 || c === n - 1) ? 1 + (R() < .5 ? 1 : 0) : 2 + (R() < .45 ? 1 : 0);
+      // A node and its label need S + 24px of height, or the next one sits on
+      // the label. Fewer rows, and less jitter, rather than a collision.
+      while (m > 1 && gh / (m + 1) < S + 24) m--;
+      var sp = gh / (m + 1), jit = Math.max(0, Math.min(gh * .1, (sp - S - 24) * 2));
+      var col = [];
+      for (var i = 0; i < m; i++) {
+        var nm = names[i % names.length];
+        col.push({ x: g.x0 + S / 2 + (gw - S) * c / (n - 1),
+                   y: g.y0 + sp * (i + 1) + (R() - .5) * jit,
+                   s: S, name: nm, kind: nm === 'Code' ? 'code' : KIND[k],
+                   hot: 0, ph: R() * 6.28, out: [] });
+      }
+      cols.push(col); nodes = nodes.concat(col);
+    }
+    function link(a, b) { for (var q = 0; q < a.out.length; q++) if (a.out[q].b === b) return;
+      var e = { a: a, b: b, lit: 0 }; a.out.push(e); edges.push(e); }
+    for (c = 0; c < n - 1; c++) {
+      var A = cols[c], B = cols[c + 1];
+      B.forEach(function (b, j) { link(A[Math.round(j * (A.length - 1) / Math.max(1, B.length - 1))], b); });
+      A.forEach(function (a) { if (!a.out.length) link(a, B[Math.floor(R() * B.length)]); });
+    }
+    // Motion off: one execution, drawn as the route it took, and nothing moves.
+    if (still) { var at = cols[0][0]; while (at && at.out.length) { at.out[0].lit = 1; at.hot = .6; at = at.out[0].b; }
+      if (at) at.hot = .6; }
+  }
+
+  function bez(e, t) {
+    var x1 = e.a.x + e.a.s / 2, y1 = e.a.y, x2 = e.b.x - e.b.s / 2, y2 = e.b.y, d = (x2 - x1) * .5, u = 1 - t;
+    return [u*u*u*x1 + 3*u*u*t*(x1 + d) + 3*u*t*t*(x2 - d) + t*t*t*x2,
+            u*u*u*y1 + 3*u*u*t*y1 + 3*u*t*t*y2 + t*t*t*y2];
+  }
+  function fire(nd, now) {
+    nd.hot = 1; rings.push({ n: nd, t0: now });
+    var outs = nd.name === 'IF' && nd.out.length > 1 ? [nd.out[Math.floor(Math.random() * nd.out.length)]] : nd.out;
+    outs.forEach(function (e) { later.push({ at: now + 170, e: e }); });
+  }
+  function rr(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  function glyph(nd, x, y) {
+    var z = nd.s / 40;
+    if (nd.kind === 'trigger') { ctx.fillStyle = 'rgba(' + OK + ',1)'; ctx.beginPath();
+      ctx.moveTo(x + 2*z, y - 9*z); ctx.lineTo(x - 5*z, y + 1*z); ctx.lineTo(x, y + 1*z); ctx.lineTo(x - 2*z, y + 9*z);
+      ctx.lineTo(x + 5*z, y - 1*z); ctx.lineTo(x, y - 1*z); ctx.closePath(); ctx.fill(); }
+    else if (nd.kind === 'ai') { ctx.fillStyle = 'rgba(' + ACC + ',1)'; ctx.beginPath();
+      ctx.moveTo(x, y - 8*z); ctx.lineTo(x + 8*z, y); ctx.lineTo(x, y + 8*z); ctx.lineTo(x - 8*z, y); ctx.closePath(); ctx.fill(); }
+    else if (nd.kind === 'code') { ctx.fillStyle = 'rgba(' + INK + ',.85)'; ctx.font = '600 ' + Math.round(13*z) + 'px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('{}', x, y + .5); }
+    else if (nd.kind === 'ok') { ctx.strokeStyle = 'rgba(' + OK + ',1)'; ctx.lineWidth = 2.2*z; ctx.beginPath();
+      ctx.moveTo(x - 6*z, y); ctx.lineTo(x - 1.5*z, y + 5*z); ctx.lineTo(x + 7*z, y - 5*z); ctx.stroke(); }
+    else { ctx.fillStyle = 'rgba(' + FLOW + ',.9)'; for (var q = -1; q <= 1; q++) ctx.fillRect(x - 7*z, y + q*5*z - 1.2*z, 14*z - Math.abs(q)*5*z, 2.4*z); }
+  }
+
+  function frame(now) {
+    var dt = Math.min(64, now - (prev || now)); prev = now;
+    px += (mx - px) * .05; py += (my - py) * .05;
+    var sy = Math.min(window.scrollY || 0, H);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+
+    // Layer 1, far: the dot grid n8n draws under every workflow. It fades out
+    // before the cards so it never sits under a caption.
+    var G = 22, ox = ((px * 6) % G + G) % G, oy = ((py * 6 + sy * .12) % G + G) % G;
+    for (var y = oy - G; y < H; y += G) {
+      var a = y < H * .45 ? .15 : .15 * Math.max(0, 1 - (y - H * .45) / (H * .35));
+      if (a <= .005) break;
+      ctx.fillStyle = 'rgba(' + INK + ',' + a.toFixed(3) + ')';
+      for (var x = ox - G; x < W; x += G) ctx.fillRect(x, y, 1.5, 1.5);
+    }
+    if (!nodes.length) return;
+
+    // Layer 2, near: the workflow. It moves further than the grid, so the two
+    // separate under the hand and under the scroll.
+    ctx.save(); ctx.translate(px * 16, py * 12 + sy * .3);
+    if (!still) {
+      if (now > nextFire) { var trig = cols[0]; fire(trig[Math.floor(Math.random() * trig.length)], now);
+        nextFire = now + 1300 + Math.random() * 1300; }
+      for (var i = later.length - 1; i >= 0; i--) if (now >= later[i].at) {
+        pulses.push({ e: later[i].e, t0: now, dur: 760 + Math.random() * 280 }); later.splice(i, 1); }
+    }
+    ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(' + INK + ',.17)';
+    edges.forEach(function (e) { var p0 = bez(e, 0), p3 = bez(e, 1), d = (p3[0] - p0[0]) * .5;
+      ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.bezierCurveTo(p0[0] + d, p0[1], p3[0] - d, p3[1], p3[0], p3[1]); ctx.stroke();
+      if (e.lit) { ctx.save(); ctx.strokeStyle = 'rgba(' + ACC + ',' + (.55 * e.lit).toFixed(3) + ')'; ctx.lineWidth = 2;
+        ctx.stroke(); ctx.restore(); }
+      if (!still) e.lit = Math.max(0, e.lit - dt / 900); });
+    for (i = pulses.length - 1; i >= 0; i--) {
+      var p = pulses[i], t = (now - p.t0) / p.dur;
+      if (t >= 1) { p.e.lit = 1; fire(p.e.b, now); pulses.splice(i, 1); continue; }
+      var te = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      ctx.lineCap = 'round';
+      for (var s = 0; s < 7; s++) { var tt = Math.max(0, te - s * .035), q = bez(p.e, tt);
+        ctx.fillStyle = 'rgba(' + ACC + ',' + ((1 - s / 7) * .85).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(q[0], q[1], 3.4 - s * .35, 0, 6.2832); ctx.fill(); }
+    }
+    rings = rings.filter(function (g) {
+      var k = (now - g.t0) / 720; if (k >= 1) return false;
+      var n = g.n, grow = n.s + k * 22, col = n.kind === 'ok' ? OK : ACC, by = still ? 0 : Math.sin(now / 1500 + n.ph) * 2;
+      ctx.strokeStyle = 'rgba(' + col + ',' + ((1 - k) * .45).toFixed(3) + ')'; ctx.lineWidth = 1.2;
+      rr(n.x - grow / 2, n.y + by - grow / 2, grow, grow, 9 + k * 6); ctx.stroke(); return true; });
+    ctx.font = '500 ' + (W < 860 ? 9 : 10) + 'px "JetBrains Mono", monospace';
+    nodes.forEach(function (n) {
+      var by = still ? 0 : Math.sin(now / 1500 + n.ph) * 2, x = n.x - n.s / 2, y = n.y + by - n.s / 2;
+      var col = n.kind === 'ok' ? OK : ACC;
+      ctx.fillStyle = '#fff'; rr(x, y, n.s, n.s, 9); ctx.fill();
+      ctx.lineWidth = 1.3 + n.hot * .7;
+      ctx.strokeStyle = n.hot > .02 ? 'rgba(' + col + ',' + (.3 + .7 * n.hot).toFixed(3) + ')' : 'rgba(' + INK + ',.24)';
+      ctx.stroke();
+      glyph(n, n.x, n.y + by);
+      ctx.fillStyle = 'rgba(' + INK + ',.5)'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.font = '500 ' + (W < 860 ? 9 : 10) + 'px "JetBrains Mono", monospace';
+      ctx.fillText(n.name, n.x, n.y + by + n.s / 2 + 7);
+      if (!still) n.hot = Math.max(0, n.hot - dt / 700);
+    });
+    ctx.restore();
+  }
+
+  function loop(now) { frame(now); raf = seen && !document.hidden ? requestAnimationFrame(loop) : 0; }
+  function wake() { if (!raf && !still && seen && !document.hidden) raf = requestAnimationFrame(loop); }
+  function redo() { layout(); frame(performance.now()); }
+
+  redo();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redo);
+  setTimeout(redo, 900);
+  var t0; new ResizeObserver(function () { clearTimeout(t0); t0 = setTimeout(redo, 120); }).observe(sec);
+  if (still) return;
+  new IntersectionObserver(function (en) { seen = en[0].isIntersecting; wake(); }).observe(sec);
+  document.addEventListener('visibilitychange', wake);
+  if (fine) window.addEventListener('pointermove', function (e) {
+    mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
+  nextFire = performance.now() + 500;
+  wake();
+}());
+
+// The cards lean toward the pointer and a sheet of light follows it.
+(function () {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  [].forEach.call(document.querySelectorAll('.pc'), function (c) {
+    c.addEventListener('pointermove', function (e) {
+      var r = c.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      c.classList.add('is-tilt');
+      c.style.transform = 'perspective(1100px) rotateX(' + ((.5 - y / r.height) * 4).toFixed(2) +
+        'deg) rotateY(' + ((x / r.width - .5) * 5).toFixed(2) + 'deg) translateY(-4px)';
+      c.style.setProperty('--mx', x.toFixed(0) + 'px'); c.style.setProperty('--my', y.toFixed(0) + 'px');
+    });
+    c.addEventListener('pointerleave', function () { c.classList.remove('is-tilt'); c.style.transform = ''; });
+  });
 }());
 
 </script>
