@@ -814,16 +814,9 @@
         <p class="proj-i mono">LeadBound · internal automations</p>
         <h2 class="proj-n">Automations that run the agency</h2>
         <p class="proj-s mono">n8n · hand-written JavaScript · Claude</p>
-        <ul class="brief">
-          <li><b>Problem</b><span>The work between the platform and the enrichment engine:
-            meetings to write up, hiring signals to act on, prospects a campaign could not
-            reach.</span></li>
-          <li><b>Built</b><span>Workflows built by hand, node by node, with the decisions in
-            hand-written JavaScript inside the nodes rather than in drag and drop. Three of
-            them are opened here.</span></li>
-          <li><b>Result</b><span>The weekly hiring signal books a client three to four
-            meetings a month, by the client’s own count.</span></li>
-        </ul>
+        <p class="proj-w">Dozens of workflows run the agency day to day, built by hand,
+          node by node, with the decisions in hand-written JavaScript rather than drag and
+          drop. Three of them are opened here, each on its own.</p>
       </div>
 
       <div class="strip strip-1">
@@ -871,16 +864,8 @@
         <p class="proj-i mono">Client work · three businesses</p>
         <h2 class="proj-n">Systems for outside clients</h2>
         <p class="proj-s mono">n8n · WooCommerce · Supabase + pgvector · Google Places, Routes and Maps · WhatsApp</p>
-        <ul class="brief">
-          <li><b>Problem</b><span>Three businesses outside software, each with one piece no
-            vendor solved.</span></li>
-          <li><b>Built</b><span>A shop assistant that cannot quote a stale price, a listing kit
-            that draws the legal parcel boundary state by state, and a labour-law check on
-            payroll that answers on WhatsApp.</span></li>
-          <li><b>Result</b><span>Several were handed over to the client’s own instance and
-            run there; the canvases below are the build. The brokerage never went live: it is
-            here because the parcel problem was solved.</span></li>
-        </ul>
+        <p class="proj-w">Three businesses outside software, each with one piece no vendor
+          solved. They have nothing else in common, so each is its own case below.</p>
       </div>
 
       <div class="cases">
@@ -889,12 +874,11 @@
           <p class="case-k mono">an online furniture store</p>
           <h3 class="case-t">A shop that keeps its own assistant honest</h3>
           <p class="case-s mono">WooCommerce · Supabase Postgres + pgvector · OpenAI embeddings · a sales agent</p>
-          <p class="case-b">The hard problem in a shop assistant is not the conversation, it is
-            <b>staleness</b>: one quoting a price from a document somebody wrote in March is
-            worse than none at all. So nothing here is a document. The catalogue is rebuilt out
-            of the live store every night and patched the moment a product changes on the site,
-            the current discount lives in exactly one row, and the assistant reads both before
-            it says a word.</p>
+          <ul class="brief">
+            <li><b>Problem</b><span>A shop assistant that quotes a price from an old document is worse than none, and the catalogue and the current discount change all the time.</span></li>
+            <li><b>Built</b><span>The catalogue is rebuilt from the live store every night and patched the moment a product changes; the current discount lives in one row, and the assistant reads both before it answers the customer.</span></li>
+            <li><b>Result</b><span>An assistant that always answers from the live catalogue, and the same suite restyles every product photo at nine cents an image.</span></li>
+          </ul>
           <dl class="proj-f"><div><dt>workflows in the suite</dt><dd>11</dd></div><div><dt>nodes</dt><dd>186</dd></div><div><dt>hand-written Q&amp;A behind it</dt><dd>41</dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
@@ -944,17 +928,11 @@
           <p class="case-k mono">a land brokerage in the United States</p>
           <h3 class="case-t">A listing kit that draws its own property line</h3>
           <p class="case-s mono">state cadastral ArcGIS services · Mapbox + Google Static Maps · Places + Routes · Claude · GPT · Gemini</p>
-          <p class="case-b">One form with eighteen fields goes in, and a whole listing comes
-            out: three platform-specific sales texts, satellite renders of the exact parcel
-            with its legal boundary drawn on it, and photographs of what is nearby with real
-            driving times burned in. <b>The hard part had no vendor.</b> There is no national
-            parcel-geometry API in the United States, so it routes state by state to whichever
-            authority publishes cadastral data, and for the two states that publish none it
-            resolves the county from the coordinates first.</p>
-          <p class="case-b"><b>The brokerage never went live with it.</b> It is on this page
-            anyway, because the parcel problem is the part worth being asked about and it was
-            solved. A portfolio that only shows the work that shipped is a portfolio with the
-            engineering edited out of it.</p>
+          <ul class="brief">
+            <li><b>Problem</b><span>A land listing needs the exact parcel with its legal boundary drawn, and the United States has no national parcel-geometry API.</span></li>
+            <li><b>Built</b><span>One form of eighteen fields in; three sales texts, satellite renders with the boundary drawn, and nearby places with real driving times out. It asks each state&rsquo;s own cadastral service, and resolves the county first where a state publishes nothing.</span></li>
+            <li><b>Result</b><span>The parcel problem was solved without a single AI model in the mapping engine. The brokerage never went live with it; it is here because that part is worth being asked about.</span></li>
+          </ul>
           <dl class="proj-f"><div><dt>workflows in the suite</dt><dd>8</dd></div><div><dt>nodes</dt><dd>287</dd></div><div><dt>AI models in the parcel engine</dt><dd>0 <em>deterministic by design</em></dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
@@ -984,11 +962,11 @@
           <p class="case-k mono">a payroll bureau</p>
           <h3 class="case-t">A clerk drops a spreadsheet, WhatsApp answers with the report</h3>
           <p class="case-s mono">an n8n form · Excel parsing · a Hebrew right-to-left PDF · WhatsApp delivery</p>
-          <p class="case-b">No dashboard and no login, because the bureau did not want
-            software. A clerk exports the monthly report out of the payroll system and drops
-            the file onto a web page. What comes back on WhatsApp is the finished Hebrew report
-            as a PDF, and where the numbers have to be used rather than read, a spreadsheet
-            beside it.</p>
+          <ul class="brief">
+            <li><b>Problem</b><span>The bureau wanted its monthly payroll checked and reported, and did not want software: no dashboard, no login.</span></li>
+            <li><b>Built</b><span>A clerk drops the payroll export on a web page. Six checks written out of labour law run on it, and the finished Hebrew report comes back on WhatsApp as a PDF.</span></li>
+            <li><b>Result</b><span>Only exceptions are reported, so a clean month is one green line. Two populations, on 182- and 154.8-hour months, run on the same code.</span></li>
+          </ul>
           <dl class="proj-f"><div><dt>workflows</dt><dd>5</dd></div><div><dt>nodes</dt><dd>67</dd></div><div><dt>checks in the compliance pass</dt><dd>6</dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
