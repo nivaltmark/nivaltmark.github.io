@@ -568,7 +568,7 @@
           <span class="pc-t">
             <span class="pc-i mono">LeadBound · product</span>
             <h3 class="pc-n">The enrichment engine</h3>
-            <span class="pc-w">A spreadsheet that computes. <b>445,131 cells filled for $3.50</b> of vendor spend, because every run is priced before it starts.</span>
+            <span class="pc-w">A spreadsheet that computes. <b>445,131 cells filled</b>, and every run is priced on screen before it is allowed to start.</span>
             <span class="pc-s mono">TypeScript · Postgres · a local runner</span>
             <span class="pc-go mono">Open the project <span aria-hidden="true">&rarr;</span></span>
           </span>
@@ -749,14 +749,13 @@
           <li><b>Built</b><span>A spreadsheet where every column is an enrichment. Each run is
             previewed and priced first, the server re-derives the price, and a paid step waits
             for a person.</span></li>
-          <li><b>Result</b><span>445,131 cells filled across 58 runs for
-            $3.50 of vendor spend.</span></li>
+          <li><b>Result</b><span>445,131 cells filled, every run priced on screen
+            before it was allowed to start.</span></li>
         </ul>
         <dl class="proj-f">
           <div><dt>cells filled</dt><dd>445,131</dd></div>
-          <div><dt>completed runs</dt><dd>58 <em>11 of them metered</em></dd></div>
-          <div><dt>total vendor spend</dt><dd>$3.50</dd></div>
           <div><dt>companies in the master database</dt><dd>119,508</dd></div>
+          <div><dt>MCP tools an agent drives it with</dt><dd>91</dd></div>
         </dl>
       </div>
       <div class="strip">
@@ -777,8 +776,8 @@
         </figure>
         <figure class="sh">
           <img src="assets/11-wb-sheet.jpg" width="2400" height="1500" loading="lazy"
-               alt="Refusing to spend, twenty-four times, captured from the running Workbench with client names replaced.">
-          <figcaption><b>Refusing to spend, twenty-four times</b> One city, 1,587 records, and 24 of them stopped before a single paid lookup ran on them. The cheapest enrichment is the one you decline.</figcaption>
+               alt="Stopped before a paid lookup, captured from the running Workbench with client names replaced.">
+          <figcaption><b>Stopped before a paid lookup</b> One city, 1,587 records. A row that fails a rule is stopped before a single paid lookup runs on it: the cheapest enrichment is the one you decline.</figcaption>
         </figure>
         <figure class="sh">
           <img src="assets/14-wb-data.jpg" width="2400" height="1500" loading="lazy"
@@ -877,9 +876,8 @@
           <ul class="brief">
             <li><b>Problem</b><span>A shop assistant that quotes a price from an old document is worse than none, and the catalogue and the current discount change all the time.</span></li>
             <li><b>Built</b><span>The catalogue is rebuilt from the live store every night and patched the moment a product changes; the current discount lives in one row, and the assistant reads both before it answers the customer.</span></li>
-            <li><b>Result</b><span>An assistant that always answers from the live catalogue, and the same suite restyles every product photo at nine cents an image.</span></li>
+            <li><b>Result</b><span>An assistant that answers from the live catalogue and the current offer, and a suite that also restyles every product photo and runs the shop&rsquo;s social feed.</span></li>
           </ul>
-          <dl class="proj-f"><div><dt>workflows in the suite</dt><dd>11</dd></div><div><dt>nodes</dt><dd>186</dd></div><div><dt>hand-written Q&amp;A behind it</dt><dd>41</dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
           <button type="button" class="zm" data-zoom="assets/35-n8n-productsync.jpg" data-w="1200" data-h="179"
@@ -909,7 +907,7 @@
                  alt="The catalogue photographs itself, captured from the running system with client names replaced.">
             <span class="zm-tag" aria-hidden="true">Zoom in</span>
           </button>
-          <figcaption><b>The catalogue photographs itself</b> One form. Every product comes back restyled per colourway at 2K, converted to webp and filed by category. Nine cents an image.</figcaption>
+          <figcaption><b>The catalogue photographs itself</b> One form. Every product comes back restyled per colourway at 2K, converted to webp and filed by category.</figcaption>
         </figure>
         <figure class="sh sh-pan">
           <button type="button" class="zm" data-zoom="assets/31-n8n-social.jpg" data-w="2876" data-h="368"
@@ -933,7 +931,6 @@
             <li><b>Built</b><span>One form of eighteen fields in; three sales texts, satellite renders with the boundary drawn, and nearby places with real driving times out. It asks each state&rsquo;s own cadastral service, and resolves the county first where a state publishes nothing.</span></li>
             <li><b>Result</b><span>The parcel problem was solved without a single AI model in the mapping engine. The brokerage never went live with it; it is here because that part is worth being asked about.</span></li>
           </ul>
-          <dl class="proj-f"><div><dt>workflows in the suite</dt><dd>8</dd></div><div><dt>nodes</dt><dd>287</dd></div><div><dt>AI models in the parcel engine</dt><dd>0 <em>deterministic by design</em></dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
           <button type="button" class="zm" data-zoom="assets/34-n8n-earth.jpg" data-w="2479" data-h="624"
@@ -967,7 +964,6 @@
             <li><b>Built</b><span>A clerk drops the payroll export on a web page. Six checks written out of labour law run on it, and the finished Hebrew report comes back on WhatsApp as a PDF.</span></li>
             <li><b>Result</b><span>Only exceptions are reported, so a clean month is one green line. Two populations, on 182- and 154.8-hour months, run on the same code.</span></li>
           </ul>
-          <dl class="proj-f"><div><dt>workflows</dt><dd>5</dd></div><div><dt>nodes</dt><dd>67</dd></div><div><dt>checks in the compliance pass</dt><dd>6</dd></div></dl>
           <div class="strip strip-1">
         <figure class="sh sh-pan">
           <button type="button" class="zm" data-zoom="assets/37-n8n-syscheck.jpg" data-w="1814" data-h="829"
