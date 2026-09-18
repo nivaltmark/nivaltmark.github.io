@@ -1414,7 +1414,7 @@
 // ------------------------------------------------ did anyone actually come in
 // A beacon to Niv's own n8n, not to an analytics service: corporate networks
 // block those, and a blocked beacon reads as "nobody came". No cookies, no
-// name, nothing that identifies a person , a browser cannot tell you who
+// name, nothing that identifies a person: a browser cannot tell you who
 // someone is, and this does not pretend otherwise.
 //
 // Niv's own browsers take themselves out of the count for good by opening the
@@ -1443,9 +1443,9 @@
     // text/plain keeps it a "simple request": no preflight, so an office
     // proxy has one fewer reason to drop it.
     function send(o) {
-      var body = {};
-      for (var p in base) body[p] = base[p];
-      for (var q2 in o) body[q2] = o[q2];
+      var body = {}, p;
+      for (p in base) body[p] = base[p];
+      for (p in o) body[p] = o[p];
       try {
         navigator.sendBeacon(URL_, new Blob([JSON.stringify(body)], { type: 'text/plain;charset=UTF-8' }));
       } catch (e) {}
@@ -1453,12 +1453,21 @@
 
     send({ e: 'open' });
 
-    // What they actually read: which projects were opened, and for how long.
+    // What they actually read. A project opens through pushState, which fires
+    // no hashchange, so the click on the card is what gets recorded, plus the
+    // address itself for anyone who arrives on a project link directly.
     var t0 = now, seen = [], done = false;
-    window.addEventListener('hashchange', function () {
-      var h = location.hash.replace('#', '');
-      if (h && seen.indexOf(h) < 0) seen.push(h);
-    });
+    function mark(k) { if (k && seen.indexOf(k) < 0) seen.push(k); }
+    mark(location.hash.replace('#', ''));
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var card = t.closest('[data-open]');
+      if (card) mark(card.getAttribute('data-open'));
+      else if (t.closest('[data-zoom]')) mark('zoomed a canvas');
+    }, true);
+    window.addEventListener('popstate', function () { mark(location.hash.replace('#', '')); });
+
     function bye() {
       if (done) return;
       done = true;
