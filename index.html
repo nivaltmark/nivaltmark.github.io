@@ -1456,7 +1456,7 @@
     // What they actually read. A project opens through pushState, which fires
     // no hashchange, so the click on the card is what gets recorded, plus the
     // address itself for anyone who arrives on a project link directly.
-    var t0 = now, seen = [], done = false;
+    var t0 = now, seen = [], done = 0;
     function mark(k) { if (k && seen.indexOf(k) < 0) seen.push(k); }
     mark(location.hash.replace('#', ''));
     document.addEventListener('click', function (e) {
@@ -1468,10 +1468,19 @@
     }, true);
     window.addEventListener('popstate', function () { mark(location.hash.replace('#', '')); });
 
+    // On a phone, switching apps for a second counts as leaving. Reporting once
+    // and stopping there is how a visitor who read for four minutes was filed
+    // as fifteen seconds, with nothing opened. So report again when there is
+    // more to say: more time, or another project opened. Three reports is the
+    // cap, and the last one always wins downstream.
+    var told = 0, toldSeen = 0;
     function bye() {
-      if (done) return;
-      done = true;
-      send({ e: 'leave', sec: Math.round((Date.now() - t0) / 1000), p: seen });
+      var sec = Math.round((Date.now() - t0) / 1000);
+      if (done >= 3) return;
+      if (sec < 20 && !seen.length) return;
+      if (sec - told < 30 && seen.length === toldSeen) return;
+      done++; told = sec; toldSeen = seen.length;
+      send({ e: 'leave', sec: sec, p: seen });
     }
     window.addEventListener('pagehide', bye);
     document.addEventListener('visibilitychange', function () { if (document.hidden) bye(); });
