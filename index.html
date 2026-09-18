@@ -1500,8 +1500,10 @@
       if (done) return;
       var sec = Math.round((Date.now() - t0) / 1000);
       var worth = sec >= 45 || seen.length > 0;
+      // A hide may be a glance at another app, so a short one with nothing to
+      // say is skipped and tracking continues. The way out is different: the
+      // page is really going, and a five second visit is still a visit.
       if (!worth && !final) return;
-      if (!worth && sec < 20) return;
       done = 1;
       send({ e: 'leave', sec: sec, p: seen });
     }
