@@ -1420,9 +1420,13 @@
 // Niv's own browsers take themselves out of the count for good by opening the
 // page once with ?me=1, and our own Playwright runs are skipped by their own
 // automation flag. Everyone else reports on every entry, every time.
+//
+// Two reports go out, and they become ONE mail: the entry is held on the n8n
+// side until the closing report arrives and completes it, or until the hold
+// runs out. Both carry the same visit id, which is what ties them together.
 // Plain JS, inlined into the page by build.py.
 (function () {
-  var URL_ = 'https://bennivbee.app.n8n.cloud/webhook/pf-visit-9f3c1a';
+  var URL_ = 'https://bennivbee.app.n8n.cloud/webhook/pf-visit-7c2b81';
   var KEY = 'nv-9f3c1a';
   try {
     if (navigator.webdriver) return;
@@ -1445,8 +1449,12 @@
     var n = (+(localStorage.getItem('nv-n') || 0)) + 1;
     localStorage.setItem('nv-n', String(n));
 
+    // One id per page load, so the entry and the ending are known to be the
+    // same visit. It identifies the visit, never the person: it is thrown away
+    // when the tab closes and never stored.
+    var vid = (Date.now().toString(36) + Math.random().toString(36).slice(2, 8));
     var base = {
-      k: KEY, s: q.get('s') || '', c: q.get('c') || '',
+      k: KEY, v: vid, s: q.get('s') || '', c: q.get('c') || '',
       ref: document.referrer || '', w: window.innerWidth, n: n
     };
     // text/plain keeps it a "simple request": no preflight, so an office
@@ -1482,10 +1490,12 @@
     // as fifteen seconds, with nothing opened. So report again when there is
     // more to say: more time, or another project opened. Three reports is the
     // cap, and the last one always wins downstream.
-    // ONE closing report per visit, so a visitor is two mails at most. On a
-    // phone the first hide is usually a glance at another app, not the end, so
-    // an early hide with nothing to say is skipped and tracking continues; the
-    // report goes on the first hide that is worth it, or on the way out.
+    // ONE closing report per visit, and it is the report that completes the
+    // mail. On a phone the first hide is usually a glance at another app, not
+    // the end, so an early hide with nothing to say is skipped and tracking
+    // continues; the report goes on the first hide that is worth it, or on the
+    // way out. A visit that never reports an ending is not lost: the hold on
+    // the other side runs out and the entry is mailed on its own.
     function bye(final) {
       if (done) return;
       var sec = Math.round((Date.now() - t0) / 1000);
