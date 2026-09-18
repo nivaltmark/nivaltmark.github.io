@@ -1411,6 +1411,65 @@
   raf = requestAnimationFrame(loop);
 }());
 
+// ------------------------------------------------ did anyone actually come in
+// A beacon to Niv's own n8n, not to an analytics service: corporate networks
+// block those, and a blocked beacon reads as "nobody came". No cookies, no
+// name, nothing that identifies a person , a browser cannot tell you who
+// someone is, and this does not pretend otherwise.
+//
+// Niv's own browsers take themselves out of the count for good by opening the
+// page once with ?me=1, and our own Playwright runs are skipped by their own
+// automation flag. One visit per browser per six hours, so a reload is not a
+// second visitor. Plain JS, inlined into the page by build.py.
+(function () {
+  var URL_ = 'https://bennivbee.app.n8n.cloud/webhook/pf-visit-9f3c1a';
+  var KEY = 'nv-9f3c1a';
+  try {
+    if (navigator.webdriver) return;
+    var q = new URLSearchParams(location.search);
+    if (q.get('me') === '1') { localStorage.setItem('nv-me', '1'); return; }
+    if (localStorage.getItem('nv-me')) return;
+
+    var now = Date.now(), last = +(localStorage.getItem('nv-last') || 0);
+    if (now - last < 6 * 3600e3) return;
+    localStorage.setItem('nv-last', String(now));
+    var n = (+(localStorage.getItem('nv-n') || 0)) + 1;
+    localStorage.setItem('nv-n', String(n));
+
+    var base = {
+      k: KEY, s: q.get('s') || '', c: q.get('c') || '',
+      ref: document.referrer || '', w: window.innerWidth, n: n
+    };
+    // text/plain keeps it a "simple request": no preflight, so an office
+    // proxy has one fewer reason to drop it.
+    function send(o) {
+      var body = {};
+      for (var p in base) body[p] = base[p];
+      for (var q2 in o) body[q2] = o[q2];
+      try {
+        navigator.sendBeacon(URL_, new Blob([JSON.stringify(body)], { type: 'text/plain;charset=UTF-8' }));
+      } catch (e) {}
+    }
+
+    send({ e: 'open' });
+
+    // What they actually read: which projects were opened, and for how long.
+    var t0 = now, seen = [], done = false;
+    window.addEventListener('hashchange', function () {
+      var h = location.hash.replace('#', '');
+      if (h && seen.indexOf(h) < 0) seen.push(h);
+    });
+    function bye() {
+      if (done) return;
+      done = true;
+      send({ e: 'leave', sec: Math.round((Date.now() - t0) / 1000), p: seen });
+    }
+    window.addEventListener('pagehide', bye);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) bye(); });
+  } catch (e) {}
+}());
+
+
 // The cards lean toward the pointer and a sheet of light follows it.
 (function () {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
