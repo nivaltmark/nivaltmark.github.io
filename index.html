@@ -1419,8 +1419,8 @@
 //
 // Niv's own browsers take themselves out of the count for good by opening the
 // page once with ?me=1, and our own Playwright runs are skipped by their own
-// automation flag. One visit per browser per six hours, so a reload is not a
-// second visitor. Plain JS, inlined into the page by build.py.
+// automation flag. Everyone else reports on every entry, every time.
+// Plain JS, inlined into the page by build.py.
 (function () {
   var URL_ = 'https://bennivbee.app.n8n.cloud/webhook/pf-visit-9f3c1a';
   var KEY = 'nv-9f3c1a';
@@ -1430,9 +1430,10 @@
     if (q.get('me') === '1') { localStorage.setItem('nv-me', '1'); return; }
     if (localStorage.getItem('nv-me')) return;
 
-    var now = Date.now(), last = +(localStorage.getItem('nv-last') || 0);
-    if (now - last < 6 * 3600e3) return;
-    localStorage.setItem('nv-last', String(now));
+    // Every entry reports. There is no quiet window and no second visit that
+    // does not count: Niv asked to hear about all of them, and a portfolio gets
+    // few enough visits that each one is worth knowing about.
+    var now = Date.now();
     var n = (+(localStorage.getItem('nv-n') || 0)) + 1;
     localStorage.setItem('nv-n', String(n));
 
@@ -1477,7 +1478,7 @@
     function bye() {
       var sec = Math.round((Date.now() - t0) / 1000);
       if (done >= 3) return;
-      if (sec < 20 && !seen.length) return;
+      if (sec < 20 && !seen.length) return;   // the open report already said this much
       if (sec - told < 30 && seen.length === toldSeen) return;
       done++; told = sec; toldSeen = seen.length;
       send({ e: 'leave', sec: sec, p: seen });
